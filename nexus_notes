@@ -1,0 +1,25 @@
+
+
+# type download nexus in google
+
+# go with version 2.x as 3.x is not yet supported with jenkins
+
+# copy the link address for 2.x and do wget
+
+# wget http://www.sonatype.org/downloads/nexus-latest- bundle.tar.gz
+
+# mkdir -p /opt/nexus
+
+# tar xvzf nexus.tar.gz -C /opt/nexus
+
+# Nexus by default starts on the port number 8081 and un &amp; pw is admin &amp; admin123
+
+# cd nexus/nexus-2.x/bin
+
+# ./nexus start { if any problem change ownership to devops to both dirs of nexus}
+
+# netstat -ntpl | grep 8081 { be patient it takes some time to start }
+
+# http://ip-addr:8081/nexus { allow port 8081 through firewall }
+
+# login and give default creds admin &amp; admin123

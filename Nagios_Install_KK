@@ -1,0 +1,30 @@
+
+Nagios Install on Linux :
+
+Step by step procedures to Install Nagios XI Server in Centos 7
+
+# Update your centos os
+
+#  yum update -y 
+
+#  yum install wget
+
+# to install network utility e.g. ping. (Optional)
+
+#  yum install net-tools
+
+#  cd /opt
+
+# Download the Nagios latest package
+
+#  wget https://assets.nagios.com/downloads/nagiosxi/5/xi-5.4.3.tar.gz
+
+#  tar -zxvf xi-5.4.3.tar.gz
+
+#  cd /opt/
+
+#  cd nagiosxi/
+
+# Fire the script for intallation and wait for completion message.
+
+#  ./fullinstall

@@ -1,0 +1,204 @@
+RHEL 7 / CentOS 7 : Disable Firewalld and use iptables
+ 
+1. Disable Firewalld Service.
+ 
+# systemctl mask firewalld
+
+2. Stop Firewalld Service.
+ 
+# systemctl stop firewalld
+
+3. Install iptables service related packages.
+ 
+# yum -y install iptables-services
+
+4. Make sure service starts at boot:
+ 
+# systemctl enable iptables
+# If you do not want ip6tables, You can skip following command.
+ 
+# systemctl enable ip6tables
+
+5. Now, Finally Let’s start the iptables services.
+ 
+# systemctl start iptables
+
+# If you do not want ip6tables, You can skip following command.
+ 
+# systemctl start ip6tables
+Firewalld Service is now disabled and stop, You can use iptables.
+ 
+Now, You will be able to use iptables as your firewall.
+You can add / remove rules as you were doing in previous releases of Red Hat/CentOS 5 and 6.
+You can configure firewall with iptables in same manner as previous.
+ 
+ 
+To list the rules:
+ 
+# iptables -L
+# ip6tables -L
+ 
+ 
+Delete Existing Rules:
+ 
+# iptables -F
+# iptables -F
+ 
+Save the deleted rules permanently:
+ 
+# service iptables save 
+# service ip6tables save 
+ 
+Start or stop the service:
+ 
+# service iptables restart 
+# service ip6tables restart 
+ 
+# systemctl stop/save/restart/start iptables
+# systemctl stop/save/restart/start ip6tables
+
+******************************************************************
+STEP 1:
+
+# iptables -L
+
+# service iptables start
+
+To block an IP:
+
+# iptables -I INPUT -s 192.168.234.135 -j DROP
+
+Or we can use "-A" option as well:
+
+# iptables -A INPUT -s 192.168.234.135 -j DROP
+
+
+TO view blocked ip:
+
+# iptables -L -v
+Chain INPUT (policy ACCEPT 146 packets, 25866 bytes)
+ pkts bytes target     prot opt in     out     source               destination 
+   33  3104 DROP       all  --  any    any     192.168.234.135      anywhere  
+
+******************************************************************
+STEP 2: Go to the other server and try connect "192.168.234.148":
+
+# ssh root@192.168.234.148
+ssh: connect to host 192.168.234.148 port 22: Connection timed out
+
+Note: It's DROP
+
+# ssh root@192.168.234.148
+ssh: connect to host 192.168.234.148 port 22: Connection refused
+
+Note: It's REJECT
+
+Now, accept:
+# iptables -A INPUT -s 192.168.234.135 -j ACCEPT
+# ssh root@192.168.234.148
+
+******************************************************************
+
+To list the default predefined services:
+
+# ls /usr/lib/firewalld/services/
+Note: Do not edit any files in the above direcory.
+
+To list the system or user created services:
+
+ls /etc/firewalld/services/
+Note: Yes, we can edit any file under above directory.
+
+
+Installing firewalld:
+# yum install firewalld
+
+# yum install firewall-config
+
+
+Checking if firewalld status:
+# systemctl status firewalld
+
+Starting firewalld:
+# systemctl start firewalld
+
+To ensure firewalld starts automatically at system start:
+# systemctl enable firewalld
+
+
+Stopping firewalld:
+# systemctl stop firewalld.service
+
+To prevent firewalld from starting automatically at system start:
+# systemctl disable firewalld
+
+To check firewalld status:
+# firewall-cmd --state
+
+Check the version:
+# firewall-cmd --version
+
+For help:
+# firewall-cmd --help
+
+To view the list of active zones:
+# firewall-cmd --get-active-zones
+
+
+To find out all the settings of a zone:
+# firewall-cmd --zone=public --list-all
+
+To view the list of services currently loaded:
+# firewall-cmd --get-services
+
+To start dropping all incoming and outgoing packets:
+# firewall-cmd --panic-on
+
+To start passing incoming and outgoing packets again:
+# firewall-cmd --panic-off
+
+To find out if panic mode is enabled or disabled:
+# firewall-cmd --query-panic
+
+Reload the Firewall:
+# firewall-cmd --reload
+
+To set the default zone:
+# firewall-cmd --set-default-zone=public
+
+To list all open ports for a zone:
+firewall-cmd --zone=dmz --list-ports
+Note: Example "dmz" zone.
+
+To add a port to a zone:
+# firewall-cmd --zone=dmz --add-port=8080/tcp
+
+To add a range of ports to a zone:
+# firewall-cmd --zone=public --add-port=5060-5061/udp
+
+Add a Service to a Zone:
+# firewall-cmd --zone=work --add-service=smtp
+
+Remove a Service from a Zone:
+# firewall-cmd --zone=work --remove-service=smtp
+
+Note: For permanent change user following command "--permanent".
+
+
+Block a ip address:
+
+# firewall-cmd --permanent --add-rich-rule="rule family='ipv4' source address='192.168.0.11' reject"
+
+Un-block a ip address:
+
+# firewall-cmd --remove-rich-rule='rule family="ipv4" source address="192.168.0.11" reject' --zone=public
+
+# firewall-cmd --add-rich-rule='rule family="ipv4" source address="192.168.234.131" reject'
+# firewall-cmd --reload
+# firewall-cmd --list-all
+
+*********************************************************************
+Configuring firewalld Using The Graphical User Interface:
+# firewall-config
+
+

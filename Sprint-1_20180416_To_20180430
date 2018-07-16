@@ -1,0 +1,40 @@
+Download, Install & Configure DevOps Tools:
+
+1. Virtualization          : Virtualbox 
+2. Linux Distribution      : CENTOS 7.0
+3. Text Editor             : ATOM
+4. Other Tools             : Putty, WinScp, Gitbash, & Cmder
+
+Account Signup & Login :
+
+1. Github
+2. Trello
+
+Unix & Linux Basics - Prerequisite(8-Hrs)
+
+1. Introduction to Linux OS
+2. CentOS 7 Installation
+3. File & Directory Management
+4. Test Editor(Vi & Vim)
+5. Links
+6. Utility Commands
+7. Archives & Backups
+8. User & Group Managemnt
+9. File Security & Permissions
+10. Package & Service Management
+
+
+GIT - Code Repository & Version Control(7-Hrs)
+
+1. What is Git?
+2. Installing Git?
+3. Getting Started
+4. Git concepts and Architecture
+5. Making changes to files
+6. Undoing changes
+7. Ignoring Files
+8. Navigating the commit tree
+9. Branching
+10. Merging Branches 
+11. Stashing Changes
+12. Remotes
